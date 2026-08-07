@@ -38,7 +38,8 @@
       "Bash(vercel inspect *)",
       "mcp__56155dbb-e720-4496-bef3-2b887b54a750__get_deployment",
       "mcp__56155dbb-e720-4496-bef3-2b887b54a750__list_teams",
-      "mcp__56155dbb-e720-4496-bef3-2b887b54a750__update_project_deployment_protection"
+      "mcp__56155dbb-e720-4496-bef3-2b887b54a750__update_project_deployment_protection",
+      "Bash(curl -s -L \"https://dentist-clinic-coral.vercel.app/\" --max-time 20)"
     ]
   }
 }
