@@ -1,0 +1,69 @@
+import Image from "next/image";
+import {
+  Container,
+  SectionHeading,
+  Card,
+  RevealGroup,
+  RevealItem,
+  FacebookIcon,
+  TwitterIcon,
+  LinkedinIcon,
+} from "@/components/shared";
+import { doctors } from "@/data";
+
+const activeDoctors = doctors.filter((doctor) => doctor.is_active);
+
+/** Team grid: portrait, name, specialization, experience, and social links. */
+export function DoctorsSection() {
+  return (
+    <section id="doctors" className="scroll-mt-24 bg-secondary/40 py-20 lg:py-28">
+      <Container className="flex flex-col gap-14">
+        <SectionHeading
+          title="Our Experienced Doctors"
+          description="Highly qualified specialists dedicated to your oral health."
+        />
+
+        <RevealGroup className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {activeDoctors.map((doctor) => (
+            <RevealItem key={doctor.id}>
+              <Card hoverable className="h-full overflow-hidden">
+                <div className="relative aspect-[4/5] w-full bg-muted">
+                  <Image
+                    src={doctor.image_url}
+                    alt={doctor.name}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex flex-col items-center gap-1 p-5 text-center">
+                  <h3 className="text-base font-semibold text-foreground">
+                    {doctor.name}
+                  </h3>
+                  <p className="text-sm font-medium text-primary">
+                    {doctor.specialization}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {doctor.experience_years}+ Years Experience
+                  </p>
+                  <div className="mt-3 flex items-center gap-2">
+                    {[FacebookIcon, TwitterIcon, LinkedinIcon].map((Icon, i) => (
+                      <a
+                        key={i}
+                        href="#"
+                        aria-label={`${doctor.name} social profile`}
+                        className="flex size-8 items-center justify-center rounded-full bg-muted text-muted-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
+                      >
+                        <Icon className="size-4" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </Card>
+            </RevealItem>
+          ))}
+        </RevealGroup>
+      </Container>
+    </section>
+  );
+}
