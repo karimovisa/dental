@@ -31,4 +31,7 @@ export type {
   BookingResult,
   ServiceBookingType,
   AppointmentDbStatus,
+  PatientRow,
+  PatientUpdate,
+  BookingView,
 } from "./db";

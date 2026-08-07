@@ -20,6 +20,12 @@ export type AppointmentRow = Tables<"appointments">;
 export type ClinicSettingsRow = Tables<"clinic_settings">;
 export type WeeklyScheduleRow = Tables<"doctor_weekly_schedule">;
 export type AvailabilityOverrideRow = Tables<"doctor_availability_override">;
+export type PatientRow = Tables<"patients">;
+export type PatientUpdate = TablesUpdate<"patients">;
+
+/** Row returned by the patient-facing `get_booking` RPC. */
+export type BookingView =
+  Database["public"]["Functions"]["get_booking"]["Returns"][number];
 
 export type AppointmentInsert = TablesInsert<"appointments">;
 export type AppointmentUpdate = TablesUpdate<"appointments">;

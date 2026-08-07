@@ -30,6 +30,9 @@ export function SettingsForm({ settings }: { settings: ClinicSettingsRow }) {
   const [granularity, setGranularity] = React.useState(
     String(settings.slot_granularity_minutes)
   );
+  const [cutoff, setCutoff] = React.useState(
+    String(settings.cancellation_cutoff_hours)
+  );
   const [name, setName] = React.useState(settings.clinic_name ?? "");
   const [phone, setPhone] = React.useState(settings.phone ?? "");
   const [address, setAddress] = React.useState(settings.address ?? "");
@@ -44,6 +47,7 @@ export function SettingsForm({ settings }: { settings: ClinicSettingsRow }) {
       const res = await updateSettings({
         booking_requires_approval: requiresApproval,
         slot_granularity_minutes: Number(granularity),
+        cancellation_cutoff_hours: Number(cutoff),
         clinic_name: name,
         phone,
         address,
@@ -97,18 +101,27 @@ export function SettingsForm({ settings }: { settings: ClinicSettingsRow }) {
             </button>
           </label>
 
-          <Select
-            containerClassName="max-w-52"
-            label="Slot interval"
-            options={[
-              { value: "10", label: "10 minutes" },
-              { value: "15", label: "15 minutes" },
-              { value: "20", label: "20 minutes" },
-              { value: "30", label: "30 minutes" },
-            ]}
-            value={granularity}
-            onValueChange={setGranularity}
-          />
+          <div className="grid gap-5 sm:grid-cols-2">
+            <Select
+              label="Slot interval"
+              options={[
+                { value: "10", label: "10 minutes" },
+                { value: "15", label: "15 minutes" },
+                { value: "20", label: "20 minutes" },
+                { value: "30", label: "30 minutes" },
+              ]}
+              value={granularity}
+              onValueChange={setGranularity}
+            />
+            <Input
+              label="Cancellation cutoff (hours)"
+              type="number"
+              min={0}
+              hint="Patients can't cancel/reschedule online within this many hours of the appointment."
+              value={cutoff}
+              onChange={(e) => setCutoff(e.target.value)}
+            />
+          </div>
         </CardContent>
       </Card>
 

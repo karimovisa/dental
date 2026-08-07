@@ -147,9 +147,24 @@ export async function deleteOverride(id: string): Promise<ActionResult> {
   return { ok: true };
 }
 
+export async function updatePatientNotes(
+  patientId: string,
+  notes: string
+): Promise<ActionResult> {
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("patients")
+    .update({ notes: notes.trim() || null })
+    .eq("id", patientId);
+  if (error) return { error: error.message };
+  revalidatePath(`/dashboard/patients/${patientId}`);
+  return { ok: true };
+}
+
 export async function updateSettings(input: {
   booking_requires_approval: boolean;
   slot_granularity_minutes: number;
+  cancellation_cutoff_hours: number;
   clinic_name: string;
   phone: string;
   address: string;
@@ -161,6 +176,7 @@ export async function updateSettings(input: {
     .update({
       booking_requires_approval: input.booking_requires_approval,
       slot_granularity_minutes: input.slot_granularity_minutes,
+      cancellation_cutoff_hours: input.cancellation_cutoff_hours,
       clinic_name: input.clinic_name,
       phone: input.phone,
       address: input.address,

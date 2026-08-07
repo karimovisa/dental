@@ -23,6 +23,7 @@ export type Database = {
           end_time: string
           id: string
           parent_appointment_id: string | null
+          patient_id: string | null
           patient_name: string
           patient_phone: string
           service_id: string | null
@@ -38,6 +39,7 @@ export type Database = {
           end_time: string
           id?: string
           parent_appointment_id?: string | null
+          patient_id?: string | null
           patient_name: string
           patient_phone: string
           service_id?: string | null
@@ -53,6 +55,7 @@ export type Database = {
           end_time?: string
           id?: string
           parent_appointment_id?: string | null
+          patient_id?: string | null
           patient_name?: string
           patient_phone?: string
           service_id?: string | null
@@ -76,6 +79,13 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
+            foreignKeyName: "appointments_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "patients"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "appointments_service_id_fkey"
             columns: ["service_id"]
             isOneToOne: false
@@ -88,6 +98,7 @@ export type Database = {
         Row: {
           address: string | null
           booking_requires_approval: boolean
+          cancellation_cutoff_hours: number
           clinic_name: string | null
           id: number
           phone: string | null
@@ -97,6 +108,7 @@ export type Database = {
         Insert: {
           address?: string | null
           booking_requires_approval?: boolean
+          cancellation_cutoff_hours?: number
           clinic_name?: string | null
           id?: number
           phone?: string | null
@@ -106,6 +118,7 @@ export type Database = {
         Update: {
           address?: string | null
           booking_requires_approval?: boolean
+          cancellation_cutoff_hours?: number
           clinic_name?: string | null
           id?: number
           phone?: string | null
@@ -217,6 +230,30 @@ export type Database = {
         }
         Relationships: []
       }
+      patients: {
+        Row: {
+          first_seen: string
+          full_name: string
+          id: string
+          notes: string | null
+          phone: string
+        }
+        Insert: {
+          first_seen?: string
+          full_name: string
+          id?: string
+          notes?: string | null
+          phone: string
+        }
+        Update: {
+          first_seen?: string
+          full_name?: string
+          id?: string
+          notes?: string | null
+          phone?: string
+        }
+        Relationships: []
+      }
       services: {
         Row: {
           booking_type: string
@@ -264,6 +301,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      cancel_booking: {
+        Args: { p_appointment_id: string; p_phone: string }
+        Returns: undefined
+      }
       create_booking: {
         Args: {
           p_comment?: string
@@ -284,6 +325,33 @@ export type Database = {
         Returns: {
           slot_end: string
           slot_start: string
+        }[]
+      }
+      get_booking: {
+        Args: { p_appointment_id: string; p_phone: string }
+        Returns: {
+          appointment_date: string
+          can_modify: boolean
+          doctor_id: string
+          id: string
+          service_id: string
+          service_title: string
+          start_time: string
+          status: string
+        }[]
+      }
+      normalize_uz_phone: { Args: { p_phone: string }; Returns: string }
+      reschedule_booking: {
+        Args: {
+          p_appointment_id: string
+          p_new_date: string
+          p_new_start: string
+          p_phone: string
+          p_reason?: string
+        }
+        Returns: {
+          appointment_id: string
+          status: string
         }[]
       }
     }

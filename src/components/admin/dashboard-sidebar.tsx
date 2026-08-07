@@ -7,6 +7,7 @@ import {
   LayoutDashboard,
   CalendarCheck,
   CalendarRange,
+  Users,
   Settings,
   LogOut,
   Menu,
@@ -19,6 +20,7 @@ import { cn } from "@/lib/utils";
 const navItems = [
   { label: "Overview", href: "/dashboard", icon: LayoutDashboard },
   { label: "Appointments", href: "/dashboard/appointments", icon: CalendarCheck },
+  { label: "Patients", href: "/dashboard/patients", icon: Users },
   { label: "Availability", href: "/dashboard/availability", icon: CalendarRange },
   { label: "Settings", href: "/dashboard/settings", icon: Settings },
 ];
