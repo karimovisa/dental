@@ -44,7 +44,7 @@ export function WhyChooseUs() {
           <Reveal delay={0.1} y={24}>
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl bg-muted shadow-card">
               <Image
-                src="/images/why-choose-us.jpg"
+                src="/images/why-choose-us.png"
                 alt="Modern dental treatment equipment"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"

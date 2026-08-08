@@ -6,7 +6,6 @@ import {
   ServicesSection,
   BeforeAfter,
   DoctorsSection,
-  CertificatesSection,
   ReviewsSection,
   FaqSection,
   AppointmentSection,
@@ -24,7 +23,6 @@ export default function HomePage() {
         <ServicesSection />
         <BeforeAfter />
         <DoctorsSection />
-        <CertificatesSection />
         <ReviewsSection />
         <FaqSection />
         <AppointmentSection />
