@@ -5,10 +5,16 @@ import {
   RevealGroup,
   RevealItem,
 } from "@/components/shared";
-import { certificates } from "@/data";
+import type { CertificateRow } from "@/types";
 
 /** Accreditations gallery — each certificate opens in a lightbox. */
-export function CertificatesSection() {
+export function CertificatesSection({
+  certificates,
+}: {
+  certificates: CertificateRow[];
+}) {
+  if (certificates.length === 0) return null;
+
   return (
     <section id="certificates" className="scroll-mt-24 py-20 lg:py-28">
       <Container className="flex flex-col gap-14">
@@ -24,12 +30,8 @@ export function CertificatesSection() {
             <RevealItem key={certificate.id}>
               <LightboxImage
                 src={certificate.image_url}
-                alt={certificate.title}
-                caption={
-                  certificate.issuer
-                    ? `${certificate.title} — ${certificate.issuer}`
-                    : certificate.title
-                }
+                alt={certificate.title ?? "Certificate"}
+                caption={certificate.title ?? undefined}
                 aspect="aspect-[3/4]"
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
               />

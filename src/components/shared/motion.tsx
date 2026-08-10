@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type HTMLMotionProps } from "framer-motion";
+import { motion, type HTMLMotionProps } from "motion/react";
 import type { ReactNode } from "react";
 
 /** Premium easing curve reused across entrance animations. */

@@ -23,6 +23,34 @@ export type AvailabilityOverrideRow = Tables<"doctor_availability_override">;
 export type PatientRow = Tables<"patients">;
 export type PatientUpdate = TablesUpdate<"patients">;
 
+// Editable site content — public-read / dentist-write. Each has matching
+// Insert/Update shapes for the dashboard CRUD forms.
+export type CertificateRow = Tables<"certificates">;
+export type CertificateInsert = TablesInsert<"certificates">;
+export type CertificateUpdate = TablesUpdate<"certificates">;
+
+export type ReviewRow = Tables<"reviews">;
+export type ReviewInsert = TablesInsert<"reviews">;
+export type ReviewUpdate = TablesUpdate<"reviews">;
+
+export type BeforeAfterRow = Tables<"before_after_cases">;
+export type BeforeAfterInsert = TablesInsert<"before_after_cases">;
+export type BeforeAfterUpdate = TablesUpdate<"before_after_cases">;
+
+export type GalleryImageRow = Tables<"gallery_images">;
+export type GalleryImageInsert = TablesInsert<"gallery_images">;
+export type GalleryImageUpdate = TablesUpdate<"gallery_images">;
+
+export type FaqRow = Tables<"faqs">;
+export type FaqInsert = TablesInsert<"faqs">;
+export type FaqUpdate = TablesUpdate<"faqs">;
+
+export type DoctorInsert = TablesInsert<"doctors">;
+export type DoctorUpdate = TablesUpdate<"doctors">;
+export type ServiceInsert = TablesInsert<"services">;
+export type ServiceUpdate = TablesUpdate<"services">;
+export type ClinicSettingsUpdate = TablesUpdate<"clinic_settings">;
+
 /** Row returned by the patient-facing `get_booking` RPC. */
 export type BookingView =
   Database["public"]["Functions"]["get_booking"]["Returns"][number];

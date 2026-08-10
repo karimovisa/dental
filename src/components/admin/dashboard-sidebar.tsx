@@ -9,6 +9,7 @@ import {
   CalendarRange,
   Users,
   Settings,
+  LayoutTemplate,
   LogOut,
   Menu,
   X,
@@ -21,6 +22,7 @@ const navItems = [
   { label: "Overview", href: "/dashboard", icon: LayoutDashboard },
   { label: "Appointments", href: "/dashboard/appointments", icon: CalendarCheck },
   { label: "Patients", href: "/dashboard/patients", icon: Users },
+  { label: "Content", href: "/dashboard/content", icon: LayoutTemplate },
   { label: "Availability", href: "/dashboard/availability", icon: CalendarRange },
   { label: "Settings", href: "/dashboard/settings", icon: Settings },
 ];

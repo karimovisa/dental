@@ -5,6 +5,7 @@ import { Menu, X, CalendarDays } from "lucide-react";
 import { Button, Container } from "@/components/shared";
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
+import type { ClinicSettingsRow } from "@/types";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -16,7 +17,7 @@ const navLinks = [
 ];
 
 /** Sticky site header: brand, centered nav, CTA. Collapses to a menu on mobile. */
-export function SiteHeader() {
+export function SiteHeader({ settings }: { settings: ClinicSettingsRow | null }) {
   const [scrolled, setScrolled] = React.useState(false);
   const [menuOpen, setMenuOpen] = React.useState(false);
 
@@ -37,8 +38,12 @@ export function SiteHeader() {
       )}
     >
       <Container className="flex h-16 items-center justify-between gap-4 lg:h-20">
-        <a href="#home" aria-label="SmileCare home">
-          <Logo />
+        <a href="#home" aria-label={`${settings?.clinic_name ?? "SmileCare"} home`}>
+          <Logo
+            name={settings?.clinic_name}
+            tagline={settings?.tagline}
+            logoUrl={settings?.logo_url}
+          />
         </a>
 
         <nav className="hidden items-center gap-1 lg:flex">

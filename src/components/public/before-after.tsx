@@ -3,14 +3,16 @@
 import * as React from "react";
 import Image from "next/image";
 import { Container, SectionHeading } from "@/components/shared";
-import { beforeAfterCases } from "@/data";
+import type { BeforeAfterRow } from "@/types";
 import { cn } from "@/lib/utils";
 
 /** Before/after results with pill labels and functional dot pagination.
  * Structured slider-ready — a full carousel can be wired later. */
-export function BeforeAfter() {
+export function BeforeAfter({ cases }: { cases: BeforeAfterRow[] }) {
   const [active, setActive] = React.useState(0);
-  const current = beforeAfterCases[active];
+  if (cases.length === 0) return null;
+  const current = cases[Math.min(active, cases.length - 1)];
+  const caption = current.caption ?? "Before & after";
 
   return (
     <section className="scroll-mt-24 py-20 lg:py-28">
@@ -35,7 +37,7 @@ export function BeforeAfter() {
               >
                 <Image
                   src={item.url}
-                  alt={`${current.title} — ${item.label}`}
+                  alt={`${caption} — ${item.label}`}
                   fill
                   sizes="(max-width: 640px) 100vw, 50vw"
                   className="object-cover"
@@ -47,23 +49,25 @@ export function BeforeAfter() {
             ))}
           </div>
 
-          <div className="flex items-center justify-center gap-2">
-            {beforeAfterCases.map((caseItem, index) => (
-              <button
-                key={caseItem.id}
-                type="button"
-                onClick={() => setActive(index)}
-                aria-label={`Show case ${index + 1}: ${caseItem.title}`}
-                aria-current={index === active}
-                className={cn(
-                  "h-2.5 rounded-full transition-all duration-300",
-                  index === active
-                    ? "w-6 bg-primary"
-                    : "w-2.5 bg-primary/30 hover:bg-primary/50"
-                )}
-              />
-            ))}
-          </div>
+          {cases.length > 1 && (
+            <div className="flex items-center justify-center gap-2">
+              {cases.map((caseItem, index) => (
+                <button
+                  key={caseItem.id}
+                  type="button"
+                  onClick={() => setActive(index)}
+                  aria-label={`Show case ${index + 1}`}
+                  aria-current={index === active}
+                  className={cn(
+                    "h-2.5 rounded-full transition-all duration-300",
+                    index === active
+                      ? "w-6 bg-primary"
+                      : "w-2.5 bg-primary/30 hover:bg-primary/50"
+                  )}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </Container>
     </section>

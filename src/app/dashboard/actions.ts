@@ -166,25 +166,41 @@ export async function updateSettings(input: {
   slot_granularity_minutes: number;
   cancellation_cutoff_hours: number;
   clinic_name: string;
+  tagline: string;
   phone: string;
+  email: string;
   address: string;
-  working_hours_note: string;
+  map_embed_url: string;
+  logo_url: string | null;
+  telegram_url: string;
+  instagram_url: string;
+  facebook_url: string;
+  working_hours: unknown;
 }): Promise<ActionResult> {
   const supabase = await createClient();
+  const clean = (v: string) => (v.trim() === "" ? null : v.trim());
   const { error } = await supabase
     .from("clinic_settings")
     .update({
       booking_requires_approval: input.booking_requires_approval,
       slot_granularity_minutes: input.slot_granularity_minutes,
       cancellation_cutoff_hours: input.cancellation_cutoff_hours,
-      clinic_name: input.clinic_name,
-      phone: input.phone,
-      address: input.address,
-      working_hours_note: input.working_hours_note,
+      clinic_name: clean(input.clinic_name),
+      tagline: clean(input.tagline),
+      phone: clean(input.phone),
+      email: clean(input.email),
+      address: clean(input.address),
+      map_embed_url: clean(input.map_embed_url),
+      logo_url: input.logo_url,
+      telegram_url: clean(input.telegram_url),
+      instagram_url: clean(input.instagram_url),
+      facebook_url: clean(input.facebook_url),
+      working_hours: input.working_hours as never,
     })
     .eq("id", 1);
   if (error) return { error: error.message };
   revalidatePath("/dashboard/settings");
   revalidatePath("/dashboard");
+  revalidatePath("/");
   return { ok: true };
 }

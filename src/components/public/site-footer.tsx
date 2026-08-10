@@ -5,7 +5,7 @@ import {
   InstagramIcon,
   TelegramIcon,
 } from "@/components/shared";
-import { clinicSettings, services } from "@/data";
+import type { ClinicSettingsRow, ServiceRow } from "@/types";
 import { Logo } from "./logo";
 
 const quickLinks = [
@@ -17,25 +17,39 @@ const quickLinks = [
   { label: "Contact", href: "#appointment" },
 ];
 
-const socials = [
-  { icon: FacebookIcon, href: clinicSettings.facebook_url, label: "Facebook" },
-  { icon: InstagramIcon, href: clinicSettings.instagram_url, label: "Instagram" },
-  { icon: TelegramIcon, href: clinicSettings.telegram_url, label: "Telegram" },
-];
+/** Site footer: brand, quick links, services, contact, socials — all from the
+ *  live clinic settings + services. */
+export function SiteFooter({
+  settings,
+  services,
+}: {
+  settings: ClinicSettingsRow | null;
+  services: ServiceRow[];
+}) {
+  const socials = [
+    { icon: FacebookIcon, href: settings?.facebook_url, label: "Facebook" },
+    { icon: InstagramIcon, href: settings?.instagram_url, label: "Instagram" },
+    { icon: TelegramIcon, href: settings?.telegram_url, label: "Telegram" },
+  ].filter((s) => s.href);
 
-const contactRows = [
-  { icon: Phone, value: clinicSettings.phone },
-  { icon: Mail, value: clinicSettings.email },
-  { icon: MapPin, value: clinicSettings.address },
-];
+  const contactRows = [
+    { icon: Phone, value: settings?.phone },
+    { icon: Mail, value: settings?.email },
+    { icon: MapPin, value: settings?.address },
+  ];
 
-/** Site footer: brand, quick links, services, contact, socials. */
-export function SiteFooter() {
+  const footerServices = services.slice(0, 5);
+
   return (
     <footer className="bg-neutral-950 text-white/70">
       <Container className="grid gap-10 py-16 sm:grid-cols-2 lg:grid-cols-4">
         <div className="flex flex-col gap-4">
-          <Logo onDark />
+          <Logo
+            onDark
+            name={settings?.clinic_name}
+            tagline={settings?.tagline}
+            logoUrl={settings?.logo_url}
+          />
           <p className="max-w-xs text-sm text-white/60">
             Premium dental care with modern technology in a comfortable,
             welcoming environment.
@@ -45,6 +59,8 @@ export function SiteFooter() {
               <a
                 key={label}
                 href={href ?? "#"}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={label}
                 className="flex size-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-primary"
               >
@@ -69,17 +85,15 @@ export function SiteFooter() {
 
         <div className="flex flex-col gap-3">
           <h3 className="text-sm font-semibold text-white">Services</h3>
-          {services
-            .filter((service) => service.is_featured)
-            .map((service) => (
-              <a
-                key={service.id}
-                href="#services"
-                className="text-sm text-white/60 transition-colors hover:text-white"
-              >
-                {service.title}
-              </a>
-            ))}
+          {footerServices.map((service) => (
+            <a
+              key={service.id}
+              href="#services"
+              className="text-sm text-white/60 transition-colors hover:text-white"
+            >
+              {service.title}
+            </a>
+          ))}
         </div>
 
         <div className="flex flex-col gap-3">
@@ -99,8 +113,8 @@ export function SiteFooter() {
       <div className="border-t border-white/10">
         <Container className="flex flex-col items-center justify-between gap-2 py-6 text-xs text-white/50 sm:flex-row">
           <span>
-            © {new Date().getFullYear()} {clinicSettings.name}. All rights
-            reserved.
+            © {new Date().getFullYear()} {settings?.clinic_name ?? "SmileCare"}. All
+            rights reserved.
           </span>
           <span>Crafted with care in Tashkent.</span>
         </Container>

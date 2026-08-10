@@ -8,10 +8,8 @@ import {
   RevealGroup,
   RevealItem,
 } from "@/components/shared";
-import { reviews } from "@/data";
+import type { ReviewRow } from "@/types";
 import { cn } from "@/lib/utils";
-
-const published = reviews.filter((review) => review.is_published);
 
 function Stars({ rating }: { rating: number }) {
   return (
@@ -32,7 +30,9 @@ function Stars({ rating }: { rating: number }) {
 }
 
 /** Patient testimonials in Google-style cards. */
-export function ReviewsSection() {
+export function ReviewsSection({ reviews }: { reviews: ReviewRow[] }) {
+  if (reviews.length === 0) return null;
+
   return (
     <section id="reviews" className="scroll-mt-24 bg-secondary/40 py-20 lg:py-28">
       <Container className="flex flex-col gap-14">
@@ -43,18 +43,22 @@ export function ReviewsSection() {
         />
 
         <RevealGroup className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {published.map((review) => (
+          {reviews.map((review) => (
             <RevealItem key={review.id}>
               <Card className="flex h-full flex-col gap-4 p-6">
                 <div className="flex items-center justify-between">
-                  <Stars rating={review.rating} />
-                  <Badge variant="muted" className="capitalize">
-                    via {review.source}
-                  </Badge>
+                  <Stars rating={review.rating ?? 5} />
+                  {review.source && (
+                    <Badge variant="muted" className="capitalize">
+                      via {review.source}
+                    </Badge>
+                  )}
                 </div>
-                <p className="flex-1 text-sm text-pretty text-muted-foreground">
-                  “{review.text}”
-                </p>
+                {review.text && (
+                  <p className="flex-1 text-sm text-pretty text-muted-foreground">
+                    “{review.text}”
+                  </p>
+                )}
                 <div className="flex items-center gap-3 border-t border-border pt-4">
                   <Avatar name={review.patient_name} src={review.photo_url} size="sm" />
                   <span className="text-sm font-medium text-foreground">

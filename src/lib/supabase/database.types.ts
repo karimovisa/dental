@@ -94,15 +94,80 @@ export type Database = {
           },
         ]
       }
+      before_after_cases: {
+        Row: {
+          after_image_url: string
+          before_image_url: string
+          caption: string | null
+          created_at: string
+          display_order: number
+          id: string
+          is_published: boolean
+        }
+        Insert: {
+          after_image_url: string
+          before_image_url: string
+          caption?: string | null
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_published?: boolean
+        }
+        Update: {
+          after_image_url?: string
+          before_image_url?: string
+          caption?: string | null
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_published?: boolean
+        }
+        Relationships: []
+      }
+      certificates: {
+        Row: {
+          created_at: string
+          display_order: number
+          id: string
+          image_url: string
+          is_published: boolean
+          title: string | null
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          image_url: string
+          is_published?: boolean
+          title?: string | null
+        }
+        Update: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          image_url?: string
+          is_published?: boolean
+          title?: string | null
+        }
+        Relationships: []
+      }
       clinic_settings: {
         Row: {
           address: string | null
           booking_requires_approval: boolean
           cancellation_cutoff_hours: number
           clinic_name: string | null
+          email: string | null
+          facebook_url: string | null
           id: number
+          instagram_url: string | null
+          logo_url: string | null
+          map_embed_url: string | null
           phone: string | null
           slot_granularity_minutes: number
+          tagline: string | null
+          telegram_url: string | null
+          working_hours: Json | null
           working_hours_note: string | null
         }
         Insert: {
@@ -110,9 +175,17 @@ export type Database = {
           booking_requires_approval?: boolean
           cancellation_cutoff_hours?: number
           clinic_name?: string | null
+          email?: string | null
+          facebook_url?: string | null
           id?: number
+          instagram_url?: string | null
+          logo_url?: string | null
+          map_embed_url?: string | null
           phone?: string | null
           slot_granularity_minutes?: number
+          tagline?: string | null
+          telegram_url?: string | null
+          working_hours?: Json | null
           working_hours_note?: string | null
         }
         Update: {
@@ -120,9 +193,17 @@ export type Database = {
           booking_requires_approval?: boolean
           cancellation_cutoff_hours?: number
           clinic_name?: string | null
+          email?: string | null
+          facebook_url?: string | null
           id?: number
+          instagram_url?: string | null
+          logo_url?: string | null
+          map_embed_url?: string | null
           phone?: string | null
           slot_granularity_minutes?: number
+          tagline?: string | null
+          telegram_url?: string | null
+          working_hours?: Json | null
           working_hours_note?: string | null
         }
         Relationships: []
@@ -230,6 +311,57 @@ export type Database = {
         }
         Relationships: []
       }
+      faqs: {
+        Row: {
+          answer: string
+          display_order: number
+          id: string
+          is_published: boolean
+          question: string
+        }
+        Insert: {
+          answer: string
+          display_order?: number
+          id?: string
+          is_published?: boolean
+          question: string
+        }
+        Update: {
+          answer?: string
+          display_order?: number
+          id?: string
+          is_published?: boolean
+          question?: string
+        }
+        Relationships: []
+      }
+      gallery_images: {
+        Row: {
+          caption: string | null
+          created_at: string
+          display_order: number
+          id: string
+          image_url: string
+          is_published: boolean
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          display_order?: number
+          id?: string
+          image_url: string
+          is_published?: boolean
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          display_order?: number
+          id?: string
+          image_url?: string
+          is_published?: boolean
+        }
+        Relationships: []
+      }
       patients: {
         Row: {
           first_seen: string
@@ -251,6 +383,42 @@ export type Database = {
           id?: string
           notes?: string | null
           phone?: string
+        }
+        Relationships: []
+      }
+      reviews: {
+        Row: {
+          created_at: string
+          display_order: number
+          id: string
+          is_published: boolean
+          patient_name: string
+          photo_url: string | null
+          rating: number | null
+          source: string | null
+          text: string | null
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_published?: boolean
+          patient_name: string
+          photo_url?: string | null
+          rating?: number | null
+          source?: string | null
+          text?: string | null
+        }
+        Update: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_published?: boolean
+          patient_name?: string
+          photo_url?: string | null
+          rating?: number | null
+          source?: string | null
+          text?: string | null
         }
         Relationships: []
       }

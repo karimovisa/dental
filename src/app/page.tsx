@@ -6,28 +6,38 @@ import {
   ServicesSection,
   BeforeAfter,
   DoctorsSection,
+  CertificatesSection,
+  GallerySection,
   ReviewsSection,
   FaqSection,
   AppointmentSection,
   SiteFooter,
 } from "@/components/public";
+import { getSiteContent } from "@/lib/site-content";
 
-export default function HomePage() {
+// Always render from the live database so dashboard edits appear immediately.
+export const dynamic = "force-dynamic";
+
+export default async function HomePage() {
+  const content = await getSiteContent();
+
   return (
     <>
-      <SiteHeader />
+      <SiteHeader settings={content.settings} />
       <main className="flex flex-col">
         <Hero />
         <WhyChooseUs />
         <StatsBar />
-        <ServicesSection />
-        <BeforeAfter />
-        <DoctorsSection />
-        <ReviewsSection />
-        <FaqSection />
-        <AppointmentSection />
+        <ServicesSection services={content.services} />
+        <BeforeAfter cases={content.beforeAfter} />
+        <DoctorsSection doctors={content.doctors} />
+        <CertificatesSection certificates={content.certificates} />
+        <GallerySection images={content.gallery} />
+        <ReviewsSection reviews={content.reviews} />
+        <FaqSection faqs={content.faqs} />
+        <AppointmentSection settings={content.settings} />
       </main>
-      <SiteFooter />
+      <SiteFooter settings={content.settings} services={content.services} />
     </>
   );
 }

@@ -23,36 +23,55 @@ import {
   Button,
   Reveal,
 } from "@/components/shared";
-import { clinicSettings } from "@/data";
 import { createClient } from "@/lib/supabase/client";
 import { formatDate } from "@/lib/format";
 import { normalizeUzPhone, formatUzPhone } from "@/lib/phone";
-import type { DoctorRow, ServiceRow, AvailableSlot, WorkingHours } from "@/types";
+import type {
+  DoctorRow,
+  ServiceRow,
+  AvailableSlot,
+  WorkingHours,
+  ClinicSettingsRow,
+} from "@/types";
 import { cn } from "@/lib/utils";
-
-function hoursFor(day: WorkingHours["day"]): string {
-  const entry = clinicSettings.working_hours.find((h) => h.day === day);
-  if (!entry || entry.is_closed) return "Closed";
-  return `${entry.opens} – ${entry.closes}`;
-}
-
-const infoBlocks = [
-  { icon: Phone, label: "Call Us", lines: [clinicSettings.phone] },
-  { icon: MapPin, label: "Our Location", lines: clinicSettings.address.split(", ") },
-  {
-    icon: Clock,
-    label: "Opening Hours",
-    lines: [
-      `Mon – Fri: ${hoursFor("mon")}`,
-      `Sat: ${hoursFor("sat")}`,
-      `Sun: ${hoursFor("sun")}`,
-    ],
-  },
-];
 
 const formatTime = (t: string) => t.slice(0, 5);
 
-export function AppointmentSection() {
+/** Build the "Call / Location / Hours" info column from live clinic settings. */
+function buildInfoBlocks(settings: ClinicSettingsRow | null) {
+  const hours = Array.isArray(settings?.working_hours)
+    ? (settings!.working_hours as unknown as WorkingHours[])
+    : [];
+  const hoursFor = (day: WorkingHours["day"]): string => {
+    const entry = hours.find((h) => h.day === day);
+    if (!entry || entry.is_closed) return "Closed";
+    return `${entry.opens} – ${entry.closes}`;
+  };
+  return [
+    { icon: Phone, label: "Call Us", lines: [settings?.phone ?? ""].filter(Boolean) },
+    {
+      icon: MapPin,
+      label: "Our Location",
+      lines: (settings?.address ?? "").split(", ").filter(Boolean),
+    },
+    {
+      icon: Clock,
+      label: "Opening Hours",
+      lines: [
+        `Mon – Fri: ${hoursFor("mon")}`,
+        `Sat: ${hoursFor("sat")}`,
+        `Sun: ${hoursFor("sun")}`,
+      ],
+    },
+  ];
+}
+
+export function AppointmentSection({
+  settings,
+}: {
+  settings: ClinicSettingsRow | null;
+}) {
+  const infoBlocks = buildInfoBlocks(settings);
   const supabase = React.useMemo(() => createClient(), []);
 
   const [doctor, setDoctor] = React.useState<DoctorRow | null>(null);
@@ -230,8 +249,8 @@ export function AppointmentSection() {
                   <TriangleAlert className="size-8 text-destructive" />
                   <p className="text-sm text-muted-foreground">
                     Booking is temporarily unavailable. Please call us at{" "}
-                    <a href={`tel:${clinicSettings.phone}`} className="text-primary">
-                      {clinicSettings.phone}
+                    <a href={`tel:${settings?.phone ?? ""}`} className="text-primary">
+                      {settings?.phone ?? "the clinic"}
                     </a>
                     .
                   </p>
