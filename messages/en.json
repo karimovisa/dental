@@ -1,0 +1,150 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "services": "Services",
+    "doctors": "Doctors",
+    "reviews": "Reviews",
+    "contact": "Contact"
+  },
+  "header": {
+    "book": "Book Appointment"
+  },
+  "switcher": {
+    "label": "Language",
+    "uz": "Uzbek",
+    "ru": "Russian"
+  },
+  "hero": {
+    "titleA": "Healthy Smile",
+    "titleB": "Confident You",
+    "subtitle": "We provide advanced dental care with modern technology in a comfortable, welcoming environment.",
+    "ctaBook": "Book Appointment",
+    "ctaServices": "Our Services",
+    "trust1Value": "10+ Years",
+    "trust1Label": "Experience",
+    "trust2Value": "5000+",
+    "trust2Label": "Happy Patients",
+    "trust3Value": "Modern",
+    "trust3Label": "Equipment",
+    "trust4Value": "Certified",
+    "trust4Label": "Doctors"
+  },
+  "why": {
+    "eyebrow": "Why Choose Us",
+    "title": "Your Smile Is Our Priority",
+    "body": "Our experienced team is dedicated to providing the highest quality dental care in a friendly and comforting environment — combining precision, technology, and genuine care.",
+    "r1": "Experienced & Certified Doctors",
+    "r2": "Advanced Dental Technology",
+    "r3": "Comfortable & Pain-Free Treatment",
+    "r4": "Sterilized & Safe Environment"
+  },
+  "services": {
+    "title": "Our Dental Services",
+    "description": "Complete dental care for you and your family.",
+    "learnMore": "Learn More"
+  },
+  "beforeAfter": {
+    "title": "Before & After",
+    "description": "See the amazing results we create.",
+    "before": "Before",
+    "after": "After"
+  },
+  "doctorsSection": {
+    "title": "Our Experienced Doctors",
+    "description": "Highly qualified specialists dedicated to your oral health.",
+    "experience": "{years}+ Years Experience"
+  },
+  "certificates": {
+    "eyebrow": "Trust & Credentials",
+    "title": "Certifications & Awards",
+    "description": "Recognized standards of care, backed by internationally accredited expertise."
+  },
+  "gallery": {
+    "eyebrow": "Our Space",
+    "title": "Clinic Gallery",
+    "description": "A look inside our modern, welcoming practice."
+  },
+  "reviewsSection": {
+    "eyebrow": "Testimonials",
+    "title": "What Our Patients Say",
+    "description": "Real reviews from patients who trust us with their smiles.",
+    "via": "via {source}"
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Frequently Asked Questions",
+    "description": "Everything you need to know before your visit."
+  },
+  "booking": {
+    "title": "Book an Appointment",
+    "description": "Pick a service and date to see live availability — we'll confirm your booking instantly.",
+    "callUs": "Call Us",
+    "location": "Our Location",
+    "hours": "Opening Hours",
+    "monFri": "Mon – Fri",
+    "sat": "Sat",
+    "sun": "Sun",
+    "closed": "Closed",
+    "fullName": "Full Name",
+    "fullNamePh": "Your full name",
+    "phone": "Phone Number",
+    "phoneInvalid": "Enter a valid +998 number",
+    "service": "Service",
+    "servicePh": "Choose a service",
+    "date": "Date",
+    "time": "Time",
+    "availableTimes": "Available times",
+    "checking": "Checking availability…",
+    "noTimes": "No open times on this date — try another day.",
+    "message": "Message (Optional)",
+    "messagePh": "Anything we should know?",
+    "review": "Review & Book",
+    "missingFields": "Please add your name, service, date, and pick a time.",
+    "phoneError": "Please enter a valid Uzbek phone number (+998 XX XXX XX XX).",
+    "unavailable": "Booking is temporarily unavailable. Please call us at",
+    "reviewTitle": "Review your booking",
+    "name": "Name",
+    "numberOk": "Is this number correct? We'll contact you on it.",
+    "edit": "Edit",
+    "confirm": "Confirm booking",
+    "bookingNow": "Booking…",
+    "taken": "That time was just taken — please pick another.",
+    "genericError": "Something went wrong. Please try again.",
+    "requestReceived": "Request received!",
+    "confirmedTitle": "Appointment confirmed!",
+    "pendingMsg": "We'll contact you shortly to confirm your booking.",
+    "seeYou": "We'll see you on {date} at {time}.",
+    "viewChange": "View or change this appointment",
+    "bookAnother": "Book another appointment"
+  },
+  "footer": {
+    "blurb": "Premium dental care with modern technology in a comfortable, welcoming environment.",
+    "quickLinks": "Quick Links",
+    "services": "Services",
+    "contact": "Contact",
+    "rights": "All rights reserved.",
+    "crafted": "Crafted with care in Tashkent."
+  },
+  "login": {
+    "title": "SmileCare Admin",
+    "subtitle": "Sign in to manage your clinic",
+    "email": "Email",
+    "password": "Password",
+    "invalid": "Invalid email or password.",
+    "signingIn": "Signing in…",
+    "signIn": "Sign in"
+  },
+  "dashboard": {
+    "overview": "Overview",
+    "appointments": "Appointments",
+    "patients": "Patients",
+    "content": "Content",
+    "availability": "Availability",
+    "settings": "Settings",
+    "signOut": "Sign out",
+    "admin": "Admin",
+    "contentTitle": "Content",
+    "contentSubtitle": "Manage everything shown on the public site. Changes go live immediately."
+  }
+}

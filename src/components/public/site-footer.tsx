@@ -92,7 +92,7 @@ export function SiteFooter({
               href="#services"
               className="text-sm text-white/60 transition-colors hover:text-white"
             >
-              {localized(locale, service.title, service.title_ru)}
+              {localized(locale, service.title, service.title_ru, service.title_uz)}
             </a>
           ))}
         </div>

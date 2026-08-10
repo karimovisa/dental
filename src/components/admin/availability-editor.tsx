@@ -19,7 +19,7 @@ import {
   deleteScheduleWindow,
   addOverride,
   deleteOverride,
-} from "@/app/[locale]/dashboard/actions";
+} from "@/app/dashboard/actions";
 import { formatDate } from "@/lib/format";
 import { cn } from "@/lib/utils";
 

@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import { useTranslations } from "next-intl";
-import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   CalendarCheck,

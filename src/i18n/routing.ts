@@ -1,11 +1,7 @@
-import { defineRouting } from "next-intl/routing";
+/** Supported languages. Uzbek is the default; English holds the base content
+ *  in the database. There is NO locale prefix in the URL — the active language
+ *  is stored in a cookie and switched with the header language button. */
+export const locales = ["uz", "ru", "en"] as const;
+export const defaultLocale = "uz";
 
-/** Locale routing: Uzbek is the default, Russian the alternative. Both are
- *  always prefixed (/uz, /ru). next-intl persists the choice in a cookie. */
-export const routing = defineRouting({
-  locales: ["uz", "ru"],
-  defaultLocale: "uz",
-  localePrefix: "always",
-});
-
-export type Locale = (typeof routing.locales)[number];
+export type Locale = (typeof locales)[number];

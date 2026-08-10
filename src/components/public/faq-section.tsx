@@ -21,8 +21,8 @@ export function FaqSection({ faqs }: { faqs: FaqRow[] }) {
           <Accordion
             items={faqs.map((faq) => ({
               id: faq.id,
-              title: localized(locale, faq.question, faq.question_ru),
-              content: localized(locale, faq.answer, faq.answer_ru),
+              title: localized(locale, faq.question, faq.question_ru, faq.question_uz),
+              content: localized(locale, faq.answer, faq.answer_ru, faq.answer_uz),
             }))}
           />
         </div>

@@ -16,7 +16,7 @@ import {
 } from "@/components/shared";
 import { ImageUpload } from "@/components/admin/image-upload";
 import { deleteMedia } from "@/lib/supabase/storage";
-import { updateSettings } from "@/app/[locale]/dashboard/actions";
+import { updateSettings } from "@/app/dashboard/actions";
 import { cn } from "@/lib/utils";
 import type { ClinicSettingsRow, WorkingHours, Weekday } from "@/types";
 

@@ -25,7 +25,7 @@ export function ServicesSection({ services }: { services: ServiceRow[] }) {
 
         <RevealGroup className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
           {services.map((service) => {
-            const description = localized(locale, service.description, service.description_ru);
+            const description = localized(locale, service.description, service.description_ru, service.description_uz);
             return (
             <RevealItem key={service.id}>
               <Card hoverable className="h-full">
@@ -37,7 +37,7 @@ export function ServicesSection({ services }: { services: ServiceRow[] }) {
                     />
                   </span>
                   <h3 className="text-base font-semibold text-foreground">
-                    {localized(locale, service.title, service.title_ru)}
+                    {localized(locale, service.title, service.title_ru, service.title_uz)}
                   </h3>
                   {description && (
                     <p className="text-sm text-pretty text-muted-foreground">

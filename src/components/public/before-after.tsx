@@ -16,7 +16,7 @@ export function BeforeAfter({ cases }: { cases: BeforeAfterRow[] }) {
   const [active, setActive] = React.useState(0);
   if (cases.length === 0) return null;
   const current = cases[Math.min(active, cases.length - 1)];
-  const caption = localized(locale, current.caption, current.caption_ru) || t("title");
+  const caption = localized(locale, current.caption, current.caption_ru, current.caption_uz) || t("title");
 
   return (
     <section className="scroll-mt-24 py-20 lg:py-28">

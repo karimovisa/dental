@@ -26,7 +26,7 @@ export function GallerySection({ images }: { images: GalleryImageRow[] }) {
 
         <RevealGroup className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {images.map((image) => {
-            const caption = localized(locale, image.caption, image.caption_ru);
+            const caption = localized(locale, image.caption, image.caption_ru, image.caption_uz);
             return (
             <RevealItem key={image.id}>
               <LightboxImage

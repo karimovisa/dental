@@ -31,7 +31,7 @@ export function CertificatesSection({
 
         <RevealGroup className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-6">
           {certificates.map((certificate) => {
-            const title = localized(locale, certificate.title, certificate.title_ru);
+            const title = localized(locale, certificate.title, certificate.title_ru, certificate.title_uz);
             return (
             <RevealItem key={certificate.id}>
               <LightboxImage

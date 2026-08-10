@@ -1,23 +1,22 @@
 "use client";
 
 import { useLocale } from "next-intl";
-import { useParams } from "next/navigation";
-import { usePathname, useRouter } from "@/i18n/navigation";
-import { routing } from "@/i18n/routing";
+import { useRouter } from "next/navigation";
+import { locales } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
-/** Two-pill locale switcher. Changing locale re-routes to the same page in the
- *  other language and persists the choice (next-intl sets the locale cookie). */
+const LABELS: Record<string, string> = { uz: "UZ", ru: "RU", en: "EN" };
+
+/** Language button: switches between Uzbek, Russian and English on the SAME
+ *  URL by writing the NEXT_LOCALE cookie and refreshing. No page prefix. */
 export function LanguageSwitcher({ className }: { className?: string }) {
   const locale = useLocale();
-  const pathname = usePathname();
   const router = useRouter();
-  const params = useParams();
 
   function switchTo(next: string) {
     if (next === locale) return;
-    // @ts-expect-error -- params shape is route-dependent; next-intl handles it.
-    router.replace({ pathname, params }, { locale: next });
+    document.cookie = `NEXT_LOCALE=${next};path=/;max-age=31536000;samesite=lax`;
+    router.refresh();
   }
 
   return (
@@ -27,20 +26,20 @@ export function LanguageSwitcher({ className }: { className?: string }) {
         className
       )}
     >
-      {routing.locales.map((l) => (
+      {locales.map((l) => (
         <button
           key={l}
           type="button"
           onClick={() => switchTo(l)}
           aria-pressed={locale === l}
           className={cn(
-            "rounded-full px-2.5 py-1 uppercase transition-colors",
+            "rounded-full px-2.5 py-1 transition-colors",
             locale === l
               ? "bg-primary text-primary-foreground"
               : "text-muted-foreground hover:text-foreground"
           )}
         >
-          {l}
+          {LABELS[l] ?? l.toUpperCase()}
         </button>
       ))}
     </div>

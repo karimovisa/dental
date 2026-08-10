@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { notFound } from "next/navigation";
-import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
-import { routing } from "@/i18n/routing";
-import "../globals.css";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale } from "next-intl/server";
+import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,22 +20,13 @@ export const metadata: Metadata = {
     "SmileCare provides advanced dental care with modern technology in a comfortable environment — implants, orthodontics, cosmetic dentistry, and gentle family care.",
 };
 
-export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
-}
-
-export default async function LocaleLayout({
+export default async function RootLayout({
   children,
-  params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
-  if (!hasLocale(routing.locales, locale)) notFound();
-
-  // Enable static rendering for this locale segment.
-  setRequestLocale(locale);
+  // Active language comes from the NEXT_LOCALE cookie (see i18n/request.ts).
+  const locale = await getLocale();
 
   return (
     <html

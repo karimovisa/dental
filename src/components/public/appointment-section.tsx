@@ -215,11 +215,11 @@ export function AppointmentSection({
 
   const serviceOptions = services.map((s) => ({
     value: s.id,
-    label: localized(locale, s.title, s.title_ru),
+    label: localized(locale, s.title, s.title_ru, s.title_uz),
   }));
   const serviceTitle = (() => {
     const s = services.find((x) => x.id === serviceId);
-    return s ? localized(locale, s.title, s.title_ru) : "";
+    return s ? localized(locale, s.title, s.title_ru, s.title_uz) : "";
   })();
   const showSlots = Boolean(serviceId && date);
 

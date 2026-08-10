@@ -50,7 +50,7 @@ export function DoctorsSection({ doctors }: { doctors: DoctorRow[] }) {
                   </h3>
                   {doctor.specialization && (
                     <p className="text-sm font-medium text-primary">
-                      {localized(locale, doctor.specialization, doctor.specialization_ru)}
+                      {localized(locale, doctor.specialization, doctor.specialization_ru, doctor.specialization_uz)}
                     </p>
                   )}
                   {doctor.experience_years != null && (
