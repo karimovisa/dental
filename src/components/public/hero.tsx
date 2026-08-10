@@ -1,18 +1,19 @@
 "use client";
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { CalendarDays, ArrowRight, Award, Users, Cpu, BadgeCheck } from "lucide-react";
 import { Button, Container, Reveal } from "@/components/shared";
 
-const trustIndicators = [
-  { icon: Award, value: "10+ Years", label: "Experience" },
-  { icon: Users, value: "5000+ Happy", label: "Patients" },
-  { icon: Cpu, value: "Modern", label: "Equipment" },
-  { icon: BadgeCheck, value: "Certified", label: "Doctors" },
-];
-
 /** Landing hero: headline + CTAs + trust indicators, paired with a hero image. */
 export function Hero() {
+  const t = useTranslations("hero");
+  const trustIndicators = [
+    { icon: Award, value: t("trust1Value"), label: t("trust1Label") },
+    { icon: Users, value: t("trust2Value"), label: t("trust2Label") },
+    { icon: Cpu, value: t("trust3Value"), label: t("trust3Label") },
+    { icon: BadgeCheck, value: t("trust4Value"), label: t("trust4Label") },
+  ];
   return (
     <section
       id="home"
@@ -23,17 +24,16 @@ export function Hero() {
         <div className="flex flex-col items-start gap-8">
           <Reveal className="flex flex-col gap-6">
             <h1 className="text-display-sm font-bold tracking-tight text-balance text-foreground sm:text-display lg:text-display-lg">
-              Healthy Smile <span className="text-primary">Confident You</span>
+              {t("titleA")} <span className="text-primary">{t("titleB")}</span>
             </h1>
             <p className="max-w-md text-lg text-pretty text-muted-foreground">
-              We provide advanced dental care with modern technology in a
-              comfortable, welcoming environment.
+              {t("subtitle")}
             </p>
           </Reveal>
 
           <Reveal delay={0.1} className="flex flex-wrap items-center gap-3">
             <Button href="#appointment" size="lg" leftIcon={<CalendarDays />}>
-              Book Appointment
+              {t("ctaBook")}
             </Button>
             <Button
               href="#services"
@@ -41,7 +41,7 @@ export function Hero() {
               size="lg"
               rightIcon={<ArrowRight />}
             >
-              Our Services
+              {t("ctaServices")}
             </Button>
           </Reveal>
 

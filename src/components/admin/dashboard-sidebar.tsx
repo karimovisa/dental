@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import {
   LayoutDashboard,
   CalendarCheck,
@@ -18,20 +18,21 @@ import { DentalIcon } from "@/components/shared";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
-const navItems = [
-  { label: "Overview", href: "/dashboard", icon: LayoutDashboard },
-  { label: "Appointments", href: "/dashboard/appointments", icon: CalendarCheck },
-  { label: "Patients", href: "/dashboard/patients", icon: Users },
-  { label: "Content", href: "/dashboard/content", icon: LayoutTemplate },
-  { label: "Availability", href: "/dashboard/availability", icon: CalendarRange },
-  { label: "Settings", href: "/dashboard/settings", icon: Settings },
-];
-
 export function DashboardSidebar({ userEmail }: { userEmail?: string }) {
+  const t = useTranslations("dashboard");
   const pathname = usePathname();
   const router = useRouter();
   const supabase = React.useMemo(() => createClient(), []);
   const [open, setOpen] = React.useState(false);
+
+  const navItems = [
+    { label: t("overview"), href: "/dashboard", icon: LayoutDashboard },
+    { label: t("appointments"), href: "/dashboard/appointments", icon: CalendarCheck },
+    { label: t("patients"), href: "/dashboard/patients", icon: Users },
+    { label: t("content"), href: "/dashboard/content", icon: LayoutTemplate },
+    { label: t("availability"), href: "/dashboard/availability", icon: CalendarRange },
+    { label: t("settings"), href: "/dashboard/settings", icon: Settings },
+  ];
 
   async function signOut() {
     await supabase.auth.signOut();
@@ -73,7 +74,7 @@ export function DashboardSidebar({ userEmail }: { userEmail?: string }) {
           SmileCare
         </span>
         <span className="text-[10px] font-medium tracking-widest text-sidebar-foreground/50 uppercase">
-          Admin
+          {t("admin")}
         </span>
       </span>
     </Link>
@@ -92,7 +93,7 @@ export function DashboardSidebar({ userEmail }: { userEmail?: string }) {
         className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground/70 transition-colors hover:bg-sidebar-accent hover:text-sidebar-foreground"
       >
         <LogOut className="size-4.5" />
-        Sign out
+        {t("signOut")}
       </button>
     </div>
   );

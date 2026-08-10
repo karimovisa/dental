@@ -16,7 +16,7 @@ import { AppointmentStatusBadge } from "./status-badge";
 import {
   updateAppointmentStatus,
   createFollowUp,
-} from "@/app/dashboard/actions";
+} from "@/app/[locale]/dashboard/actions";
 import { formatDate } from "@/lib/format";
 import type { AppointmentDbStatus } from "@/types";
 

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useTranslations, useLocale } from "next-intl";
 import { UserRound } from "lucide-react";
 import {
   Container,
@@ -10,19 +11,19 @@ import {
   TwitterIcon,
   LinkedinIcon,
 } from "@/components/shared";
+import { localized } from "@/lib/i18n-content";
 import type { DoctorRow } from "@/types";
 
 /** Team grid: portrait, name, specialization, experience, and social links. */
 export function DoctorsSection({ doctors }: { doctors: DoctorRow[] }) {
+  const t = useTranslations("doctorsSection");
+  const locale = useLocale();
   if (doctors.length === 0) return null;
 
   return (
     <section id="doctors" className="scroll-mt-24 bg-secondary/40 py-20 lg:py-28">
       <Container className="flex flex-col gap-14">
-        <SectionHeading
-          title="Our Experienced Doctors"
-          description="Highly qualified specialists dedicated to your oral health."
-        />
+        <SectionHeading title={t("title")} description={t("description")} />
 
         <RevealGroup className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {doctors.map((doctor) => (
@@ -49,12 +50,12 @@ export function DoctorsSection({ doctors }: { doctors: DoctorRow[] }) {
                   </h3>
                   {doctor.specialization && (
                     <p className="text-sm font-medium text-primary">
-                      {doctor.specialization}
+                      {localized(locale, doctor.specialization, doctor.specialization_ru)}
                     </p>
                   )}
                   {doctor.experience_years != null && (
                     <p className="text-xs text-muted-foreground">
-                      {doctor.experience_years}+ Years Experience
+                      {t("experience", { years: doctor.experience_years })}
                     </p>
                   )}
                   <div className="mt-3 flex items-center gap-2">

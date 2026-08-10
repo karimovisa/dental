@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { Star } from "lucide-react";
 import {
   Container,
@@ -31,15 +32,16 @@ function Stars({ rating }: { rating: number }) {
 
 /** Patient testimonials in Google-style cards. */
 export function ReviewsSection({ reviews }: { reviews: ReviewRow[] }) {
+  const t = useTranslations("reviewsSection");
   if (reviews.length === 0) return null;
 
   return (
     <section id="reviews" className="scroll-mt-24 bg-secondary/40 py-20 lg:py-28">
       <Container className="flex flex-col gap-14">
         <SectionHeading
-          eyebrow="Testimonials"
-          title="What Our Patients Say"
-          description="Real reviews from patients who trust us with their smiles."
+          eyebrow={t("eyebrow")}
+          title={t("title")}
+          description={t("description")}
         />
 
         <RevealGroup className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -50,7 +52,7 @@ export function ReviewsSection({ reviews }: { reviews: ReviewRow[] }) {
                   <Stars rating={review.rating ?? 5} />
                   {review.source && (
                     <Badge variant="muted" className="capitalize">
-                      via {review.source}
+                      {t("via", { source: review.source })}
                     </Badge>
                   )}
                 </div>

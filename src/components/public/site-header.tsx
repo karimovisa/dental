@@ -2,22 +2,25 @@
 
 import * as React from "react";
 import { Menu, X, CalendarDays } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Button, Container } from "@/components/shared";
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
+import { LanguageSwitcher } from "./language-switcher";
 import type { ClinicSettingsRow } from "@/types";
-
-const navLinks = [
-  { label: "Home", href: "#home" },
-  { label: "About Us", href: "#why" },
-  { label: "Services", href: "#services" },
-  { label: "Doctors", href: "#doctors" },
-  { label: "Reviews", href: "#reviews" },
-  { label: "Contact", href: "#appointment" },
-];
 
 /** Sticky site header: brand, centered nav, CTA. Collapses to a menu on mobile. */
 export function SiteHeader({ settings }: { settings: ClinicSettingsRow | null }) {
+  const t = useTranslations("nav");
+  const tHeader = useTranslations("header");
+  const navLinks = [
+    { label: t("home"), href: "#home" },
+    { label: t("about"), href: "#why" },
+    { label: t("services"), href: "#services" },
+    { label: t("doctors"), href: "#doctors" },
+    { label: t("reviews"), href: "#reviews" },
+    { label: t("contact"), href: "#appointment" },
+  ];
   const [scrolled, setScrolled] = React.useState(false);
   const [menuOpen, setMenuOpen] = React.useState(false);
 
@@ -59,13 +62,14 @@ export function SiteHeader({ settings }: { settings: ClinicSettingsRow | null })
         </nav>
 
         <div className="flex items-center gap-2">
+          <LanguageSwitcher />
           <Button
             href="#appointment"
             size="md"
             leftIcon={<CalendarDays />}
             className="hidden rounded-full sm:inline-flex"
           >
-            Book Appointment
+            {tHeader("book")}
           </Button>
           <button
             type="button"
@@ -104,7 +108,7 @@ export function SiteHeader({ settings }: { settings: ClinicSettingsRow | null })
             className="mt-2 rounded-full"
             onClick={() => setMenuOpen(false)}
           >
-            Book Appointment
+            {tHeader("book")}
           </Button>
         </Container>
       </div>

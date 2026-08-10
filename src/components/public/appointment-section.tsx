@@ -23,8 +23,10 @@ import {
   Button,
   Reveal,
 } from "@/components/shared";
+import { useTranslations, useLocale } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import { formatDate } from "@/lib/format";
+import { localized } from "@/lib/i18n-content";
 import { normalizeUzPhone, formatUzPhone } from "@/lib/phone";
 import type {
   DoctorRow,
@@ -35,32 +37,34 @@ import type {
 } from "@/types";
 import { cn } from "@/lib/utils";
 
-const formatTime = (t: string) => t.slice(0, 5);
+const formatTime = (s: string) => s.slice(0, 5);
+
+type Translator = ReturnType<typeof useTranslations>;
 
 /** Build the "Call / Location / Hours" info column from live clinic settings. */
-function buildInfoBlocks(settings: ClinicSettingsRow | null) {
+function buildInfoBlocks(settings: ClinicSettingsRow | null, t: Translator) {
   const hours = Array.isArray(settings?.working_hours)
     ? (settings!.working_hours as unknown as WorkingHours[])
     : [];
   const hoursFor = (day: WorkingHours["day"]): string => {
     const entry = hours.find((h) => h.day === day);
-    if (!entry || entry.is_closed) return "Closed";
+    if (!entry || entry.is_closed) return t("closed");
     return `${entry.opens} – ${entry.closes}`;
   };
   return [
-    { icon: Phone, label: "Call Us", lines: [settings?.phone ?? ""].filter(Boolean) },
+    { icon: Phone, label: t("callUs"), lines: [settings?.phone ?? ""].filter(Boolean) },
     {
       icon: MapPin,
-      label: "Our Location",
+      label: t("location"),
       lines: (settings?.address ?? "").split(", ").filter(Boolean),
     },
     {
       icon: Clock,
-      label: "Opening Hours",
+      label: t("hours"),
       lines: [
-        `Mon – Fri: ${hoursFor("mon")}`,
-        `Sat: ${hoursFor("sat")}`,
-        `Sun: ${hoursFor("sun")}`,
+        `${t("monFri")}: ${hoursFor("mon")}`,
+        `${t("sat")}: ${hoursFor("sat")}`,
+        `${t("sun")}: ${hoursFor("sun")}`,
       ],
     },
   ];
@@ -71,7 +75,9 @@ export function AppointmentSection({
 }: {
   settings: ClinicSettingsRow | null;
 }) {
-  const infoBlocks = buildInfoBlocks(settings);
+  const t = useTranslations("booking");
+  const locale = useLocale();
+  const infoBlocks = buildInfoBlocks(settings, t);
   const supabase = React.useMemo(() => createClient(), []);
 
   const [doctor, setDoctor] = React.useState<DoctorRow | null>(null);
@@ -146,11 +152,11 @@ export function AppointmentSection({
     e.preventDefault();
     setFormError(null);
     if (!serviceId || !date || !selectedSlot || !name.trim()) {
-      setFormError("Please add your name, service, date, and pick a time.");
+      setFormError(t("missingFields"));
       return;
     }
     if (!normalizedPhone) {
-      setFormError("Please enter a valid Uzbek phone number (+998 XX XXX XX XX).");
+      setFormError(t("phoneError"));
       return;
     }
     setConfirming(true);
@@ -174,13 +180,13 @@ export function AppointmentSection({
     if (error) {
       setConfirming(false);
       if (/just taken|no longer available/i.test(error.message)) {
-        setFormError("That time was just taken — please pick another.");
+        setFormError(t("taken"));
         setSelectedSlot("");
         fetchSlots();
       } else if (/valid Uzbek phone/i.test(error.message)) {
-        setFormError("Please enter a valid Uzbek phone number (+998 XX XXX XX XX).");
+        setFormError(t("phoneError"));
       } else {
-        setFormError("Something went wrong. Please try again.");
+        setFormError(t("genericError"));
       }
       return;
     }
@@ -207,17 +213,20 @@ export function AppointmentSection({
     setFormError(null);
   }
 
-  const serviceOptions = services.map((s) => ({ value: s.id, label: s.title }));
-  const serviceTitle = services.find((s) => s.id === serviceId)?.title ?? "";
+  const serviceOptions = services.map((s) => ({
+    value: s.id,
+    label: localized(locale, s.title, s.title_ru),
+  }));
+  const serviceTitle = (() => {
+    const s = services.find((x) => x.id === serviceId);
+    return s ? localized(locale, s.title, s.title_ru) : "";
+  })();
   const showSlots = Boolean(serviceId && date);
 
   return (
     <section id="appointment" className="scroll-mt-24 py-20 lg:py-28">
       <Container className="flex flex-col gap-14">
-        <SectionHeading
-          title="Book an Appointment"
-          description="Pick a service and date to see live availability — we'll confirm your booking instantly."
-        />
+        <SectionHeading title={t("title")} description={t("description")} />
 
         <div className="grid gap-6 lg:grid-cols-5">
           <Reveal className="lg:col-span-2">
@@ -248,9 +257,9 @@ export function AppointmentSection({
                 <div className="flex flex-1 flex-col items-center justify-center gap-3 py-10 text-center">
                   <TriangleAlert className="size-8 text-destructive" />
                   <p className="text-sm text-muted-foreground">
-                    Booking is temporarily unavailable. Please call us at{" "}
+                    {t("unavailable")}{" "}
                     <a href={`tel:${settings?.phone ?? ""}`} className="text-primary">
-                      {settings?.phone ?? "the clinic"}
+                      {settings?.phone ?? ""}
                     </a>
                     .
                   </p>
@@ -270,40 +279,40 @@ export function AppointmentSection({
               ) : (
                 <form onSubmit={review} className="flex flex-col gap-5">
                   <div className="grid gap-5 sm:grid-cols-2">
-                    <Input label="Full Name" placeholder="Your full name" value={name} onChange={(e) => setName(e.target.value)} />
+                    <Input label={t("fullName")} placeholder={t("fullNamePh")} value={name} onChange={(e) => setName(e.target.value)} />
                     <Input
-                      label="Phone Number"
+                      label={t("phone")}
                       type="tel"
                       placeholder="+998 90 123 45 67"
                       leftIcon={<Phone />}
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      error={phone && !normalizedPhone ? "Enter a valid +998 number" : undefined}
+                      error={phone && !normalizedPhone ? t("phoneInvalid") : undefined}
                     />
                   </div>
 
                   <div className="grid gap-5 sm:grid-cols-2">
                     <Select
-                      label="Service"
-                      placeholder="Choose a service"
+                      label={t("service")}
+                      placeholder={t("servicePh")}
                       options={serviceOptions}
                       value={serviceId}
                       onValueChange={setServiceId}
                     />
-                    <Input label="Date" type="date" min={today} value={date} onChange={(e) => setDate(e.target.value)} />
+                    <Input label={t("date")} type="date" min={today} value={date} onChange={(e) => setDate(e.target.value)} />
                   </div>
 
                   {showSlots && (
                     <div className="flex flex-col gap-2">
-                      <span className="text-sm font-medium text-foreground">Available times</span>
+                      <span className="text-sm font-medium text-foreground">{t("availableTimes")}</span>
                       {slotsLoading ? (
                         <div className="flex items-center gap-2 py-4 text-sm text-muted-foreground">
-                          <Loader2 className="size-4 animate-spin" /> Checking availability…
+                          <Loader2 className="size-4 animate-spin" /> {t("checking")}
                         </div>
                       ) : slots.length === 0 ? (
                         <div className="flex items-center gap-2 rounded-lg bg-muted/60 px-4 py-4 text-sm text-muted-foreground">
                           <CalendarClock className="size-4" />
-                          No open times on this date — try another day.
+                          {t("noTimes")}
                         </div>
                       ) : (
                         <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
@@ -330,7 +339,7 @@ export function AppointmentSection({
                     </div>
                   )}
 
-                  <Textarea label="Message (Optional)" placeholder="Anything we should know?" value={comment} onChange={(e) => setComment(e.target.value)} />
+                  <Textarea label={t("message")} placeholder={t("messagePh")} value={comment} onChange={(e) => setComment(e.target.value)} />
 
                   {formError && (
                     <p className="flex items-center gap-2 text-sm text-destructive">
@@ -340,7 +349,7 @@ export function AppointmentSection({
                   )}
 
                   <Button type="submit" size="lg" fullWidth leftIcon={<CalendarDays />}>
-                    Review &amp; Book
+                    {t("review")}
                   </Button>
                 </form>
               )}
@@ -373,15 +382,16 @@ function ConfirmStep({
   onBack: () => void;
   onConfirm: () => void;
 }) {
+  const t = useTranslations("booking");
   return (
     <div className="flex flex-col gap-5">
-      <h3 className="text-lg font-semibold text-foreground">Review your booking</h3>
+      <h3 className="text-lg font-semibold text-foreground">{t("reviewTitle")}</h3>
       <dl className="flex flex-col divide-y divide-border rounded-xl border border-border">
         {[
-          ["Name", name],
-          ["Service", serviceTitle],
-          ["Date", formatDate(date)],
-          ["Time", time],
+          [t("name"), name],
+          [t("service"), serviceTitle],
+          [t("date"), formatDate(date)],
+          [t("time"), time],
         ].map(([k, v]) => (
           <div key={k} className="flex items-center justify-between px-4 py-3 text-sm">
             <dt className="text-muted-foreground">{k}</dt>
@@ -391,9 +401,7 @@ function ConfirmStep({
       </dl>
 
       <div className="rounded-xl bg-accent px-4 py-3 text-sm">
-        <p className="text-accent-foreground">
-          Is this number correct? We&apos;ll contact you on it.
-        </p>
+        <p className="text-accent-foreground">{t("numberOk")}</p>
         <p className="mt-1 text-lg font-semibold tracking-wide text-foreground">{phone}</p>
       </div>
 
@@ -406,10 +414,10 @@ function ConfirmStep({
 
       <div className="flex gap-3">
         <Button variant="outline" onClick={onBack} disabled={submitting} leftIcon={<ArrowLeft />}>
-          Edit
+          {t("edit")}
         </Button>
         <Button fullWidth onClick={onConfirm} isLoading={submitting} disabled={submitting} leftIcon={<Check />}>
-          {submitting ? "Booking…" : "Confirm booking"}
+          {submitting ? t("bookingNow") : t("confirm")}
         </Button>
       </div>
     </div>
@@ -423,6 +431,7 @@ function ConfirmationView({
   result: { id: string; status: string; date: string; time: string };
   onReset: () => void;
 }) {
+  const t = useTranslations("booking");
   const pending = result.status === "pending";
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-4 py-8 text-center">
@@ -435,18 +444,12 @@ function ConfirmationView({
         <Check className="size-7" />
       </span>
       <h3 className="text-xl font-semibold text-foreground">
-        {pending ? "Request received!" : "Appointment confirmed!"}
+        {pending ? t("requestReceived") : t("confirmedTitle")}
       </h3>
       <p className="max-w-sm text-sm text-muted-foreground">
-        {pending ? (
-          <>We&apos;ll contact you shortly to confirm your booking.</>
-        ) : (
-          <>
-            We&apos;ll see you on{" "}
-            <span className="font-medium text-foreground">{formatDate(result.date)}</span> at{" "}
-            <span className="font-medium text-foreground">{result.time}</span>.
-          </>
-        )}
+        {pending
+          ? t("pendingMsg")
+          : t("seeYou", { date: formatDate(result.date), time: result.time })}
       </p>
 
       {result.id && (
@@ -454,13 +457,13 @@ function ConfirmationView({
           href={`/booking/${result.id}`}
           className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
         >
-          View or change this appointment
+          {t("viewChange")}
           <ExternalLink className="size-3.5" />
         </Link>
       )}
 
       <Button variant="outline" onClick={onReset}>
-        Book another appointment
+        {t("bookAnother")}
       </Button>
     </div>
   );

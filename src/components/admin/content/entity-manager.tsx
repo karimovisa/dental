@@ -29,7 +29,7 @@ import {
   deleteContent,
   swapContentOrder,
   type ContentTable,
-} from "@/app/dashboard/content/actions";
+} from "@/app/[locale]/dashboard/content/actions";
 import { cn } from "@/lib/utils";
 
 export type FieldDef = {

@@ -1,31 +1,21 @@
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Check } from "lucide-react";
 import { Container, SectionHeading, Reveal } from "@/components/shared";
 
-const reasons = [
-  "Experienced & Certified Doctors",
-  "Advanced Dental Technology",
-  "Comfortable & Pain-Free Treatment",
-  "Sterilized & Safe Environment",
-];
-
 /** "Why choose us" — value proposition with a checklist and a supporting image. */
 export function WhyChooseUs() {
+  const t = useTranslations("why");
+  const reasons = [t("r1"), t("r2"), t("r3"), t("r4")];
   return (
     <section id="why" className="scroll-mt-24 py-20 lg:py-28">
       <Container className="flex flex-col gap-14">
-        <SectionHeading
-          eyebrow="Why Choose Us"
-          title="Your Smile Is Our Priority"
-          underline
-        />
+        <SectionHeading eyebrow={t("eyebrow")} title={t("title")} underline />
 
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <Reveal className="flex flex-col gap-6">
             <p className="text-lg text-pretty text-muted-foreground">
-              Our experienced team is dedicated to providing the highest quality
-              dental care in a friendly and comforting environment — combining
-              precision, technology, and genuine care.
+              {t("body")}
             </p>
             <ul className="flex flex-col gap-4">
               {reasons.map((reason) => (

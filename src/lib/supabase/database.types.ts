@@ -99,6 +99,7 @@ export type Database = {
           after_image_url: string
           before_image_url: string
           caption: string | null
+          caption_ru: string | null
           created_at: string
           display_order: number
           id: string
@@ -108,6 +109,7 @@ export type Database = {
           after_image_url: string
           before_image_url: string
           caption?: string | null
+          caption_ru?: string | null
           created_at?: string
           display_order?: number
           id?: string
@@ -117,6 +119,7 @@ export type Database = {
           after_image_url?: string
           before_image_url?: string
           caption?: string | null
+          caption_ru?: string | null
           created_at?: string
           display_order?: number
           id?: string
@@ -132,6 +135,7 @@ export type Database = {
           image_url: string
           is_published: boolean
           title: string | null
+          title_ru: string | null
         }
         Insert: {
           created_at?: string
@@ -140,6 +144,7 @@ export type Database = {
           image_url: string
           is_published?: boolean
           title?: string | null
+          title_ru?: string | null
         }
         Update: {
           created_at?: string
@@ -148,6 +153,7 @@ export type Database = {
           image_url?: string
           is_published?: boolean
           title?: string | null
+          title_ru?: string | null
         }
         Relationships: []
       }
@@ -169,6 +175,7 @@ export type Database = {
           telegram_url: string | null
           working_hours: Json | null
           working_hours_note: string | null
+          working_hours_note_ru: string | null
         }
         Insert: {
           address?: string | null
@@ -187,6 +194,7 @@ export type Database = {
           telegram_url?: string | null
           working_hours?: Json | null
           working_hours_note?: string | null
+          working_hours_note_ru?: string | null
         }
         Update: {
           address?: string | null
@@ -205,6 +213,7 @@ export type Database = {
           telegram_url?: string | null
           working_hours?: Json | null
           working_hours_note?: string | null
+          working_hours_note_ru?: string | null
         }
         Relationships: []
       }
@@ -278,6 +287,7 @@ export type Database = {
       doctors: {
         Row: {
           bio: string | null
+          bio_ru: string | null
           created_at: string
           display_order: number
           experience_years: number | null
@@ -286,9 +296,11 @@ export type Database = {
           is_active: boolean
           name: string
           specialization: string | null
+          specialization_ru: string | null
         }
         Insert: {
           bio?: string | null
+          bio_ru?: string | null
           created_at?: string
           display_order?: number
           experience_years?: number | null
@@ -297,9 +309,11 @@ export type Database = {
           is_active?: boolean
           name: string
           specialization?: string | null
+          specialization_ru?: string | null
         }
         Update: {
           bio?: string | null
+          bio_ru?: string | null
           created_at?: string
           display_order?: number
           experience_years?: number | null
@@ -308,36 +322,44 @@ export type Database = {
           is_active?: boolean
           name?: string
           specialization?: string | null
+          specialization_ru?: string | null
         }
         Relationships: []
       }
       faqs: {
         Row: {
           answer: string
+          answer_ru: string | null
           display_order: number
           id: string
           is_published: boolean
           question: string
+          question_ru: string | null
         }
         Insert: {
           answer: string
+          answer_ru?: string | null
           display_order?: number
           id?: string
           is_published?: boolean
           question: string
+          question_ru?: string | null
         }
         Update: {
           answer?: string
+          answer_ru?: string | null
           display_order?: number
           id?: string
           is_published?: boolean
           question?: string
+          question_ru?: string | null
         }
         Relationships: []
       }
       gallery_images: {
         Row: {
           caption: string | null
+          caption_ru: string | null
           created_at: string
           display_order: number
           id: string
@@ -346,6 +368,7 @@ export type Database = {
         }
         Insert: {
           caption?: string | null
+          caption_ru?: string | null
           created_at?: string
           display_order?: number
           id?: string
@@ -354,6 +377,7 @@ export type Database = {
         }
         Update: {
           caption?: string | null
+          caption_ru?: string | null
           created_at?: string
           display_order?: number
           id?: string
@@ -428,6 +452,7 @@ export type Database = {
           buffer_minutes: number
           created_at: string
           description: string | null
+          description_ru: string | null
           display_order: number
           duration_minutes: number
           icon: string | null
@@ -435,12 +460,14 @@ export type Database = {
           is_published: boolean
           price: number | null
           title: string
+          title_ru: string | null
         }
         Insert: {
           booking_type?: string
           buffer_minutes?: number
           created_at?: string
           description?: string | null
+          description_ru?: string | null
           display_order?: number
           duration_minutes: number
           icon?: string | null
@@ -448,12 +475,14 @@ export type Database = {
           is_published?: boolean
           price?: number | null
           title: string
+          title_ru?: string | null
         }
         Update: {
           booking_type?: string
           buffer_minutes?: number
           created_at?: string
           description?: string | null
+          description_ru?: string | null
           display_order?: number
           duration_minutes?: number
           icon?: string | null
@@ -461,6 +490,7 @@ export type Database = {
           is_published?: boolean
           price?: number | null
           title?: string
+          title_ru?: string | null
         }
         Relationships: []
       }

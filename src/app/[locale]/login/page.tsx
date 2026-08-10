@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { LogIn, TriangleAlert } from "lucide-react";
 import { Button, Input, DentalIcon } from "@/components/shared";
 import { createClient } from "@/lib/supabase/client";
@@ -15,6 +16,7 @@ export default function LoginPage() {
 }
 
 function LoginForm() {
+  const t = useTranslations("login");
   const router = useRouter();
   const searchParams = useSearchParams();
   const supabase = React.useMemo(() => createClient(), []);
@@ -31,7 +33,7 @@ function LoginForm() {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
       setLoading(false);
-      setError("Invalid email or password.");
+      setError(t("invalid"));
       return;
     }
     const redirect = searchParams.get("redirect") || "/dashboard";
@@ -48,17 +50,15 @@ function LoginForm() {
           </span>
           <div>
             <h1 className="text-xl font-bold tracking-tight text-foreground">
-              SmileCare Admin
+              {t("title")}
             </h1>
-            <p className="text-sm text-muted-foreground">
-              Sign in to manage your clinic
-            </p>
+            <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
           </div>
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <Input
-            label="Email"
+            label={t("email")}
             type="email"
             autoComplete="email"
             placeholder="dentist@smilecare.uz"
@@ -67,7 +67,7 @@ function LoginForm() {
             required
           />
           <Input
-            label="Password"
+            label={t("password")}
             type="password"
             autoComplete="current-password"
             placeholder="••••••••"
@@ -91,7 +91,7 @@ function LoginForm() {
             disabled={loading}
             leftIcon={<LogIn />}
           >
-            {loading ? "Signing in…" : "Sign in"}
+            {loading ? t("signingIn") : t("signIn")}
           </Button>
         </form>
       </div>

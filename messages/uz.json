@@ -1,0 +1,150 @@
+{
+  "nav": {
+    "home": "Bosh sahifa",
+    "about": "Biz haqimizda",
+    "services": "Xizmatlar",
+    "doctors": "Shifokorlar",
+    "reviews": "Sharhlar",
+    "contact": "Aloqa"
+  },
+  "header": {
+    "book": "Vaqt olish"
+  },
+  "switcher": {
+    "label": "Til",
+    "uz": "O‘zbekcha",
+    "ru": "Ruscha"
+  },
+  "hero": {
+    "titleA": "Sog‘lom tabassum",
+    "titleB": "ishonchli siz",
+    "subtitle": "Biz zamonaviy texnologiyalar bilan qulay va xush muhitda ilg‘or stomatologik xizmat ko‘rsatamiz.",
+    "ctaBook": "Vaqt olish",
+    "ctaServices": "Xizmatlarimiz",
+    "trust1Value": "10+ yil",
+    "trust1Label": "Tajriba",
+    "trust2Value": "5000+",
+    "trust2Label": "Baxtli mijozlar",
+    "trust3Value": "Zamonaviy",
+    "trust3Label": "Jihozlar",
+    "trust4Value": "Sertifikatli",
+    "trust4Label": "Shifokorlar"
+  },
+  "why": {
+    "eyebrow": "Nega bizni tanlashadi",
+    "title": "Sizning tabassumingiz — bizning ustuvorligimiz",
+    "body": "Bizning tajribali jamoamiz aniqlik, texnologiya va samimiy g‘amxo‘rlikni uyg‘unlashtirgan holda do‘stona va qulay muhitda eng yuqori sifatli stomatologik yordam ko‘rsatishga bag‘ishlangan.",
+    "r1": "Tajribali va sertifikatli shifokorlar",
+    "r2": "Ilg‘or stomatologik texnologiyalar",
+    "r3": "Qulay va og‘riqsiz davolash",
+    "r4": "Steril va xavfsiz muhit"
+  },
+  "services": {
+    "title": "Bizning stomatologik xizmatlar",
+    "description": "Siz va oilangiz uchun to‘liq stomatologik yordam.",
+    "learnMore": "Batafsil"
+  },
+  "beforeAfter": {
+    "title": "Oldin va keyin",
+    "description": "Biz yaratadigan ajoyib natijalarni ko‘ring.",
+    "before": "Oldin",
+    "after": "Keyin"
+  },
+  "doctorsSection": {
+    "title": "Tajribali shifokorlarimiz",
+    "description": "Og‘iz bo‘shlig‘i salomatligingizga bag‘ishlangan yuqori malakali mutaxassislar.",
+    "experience": "{years}+ yil tajriba"
+  },
+  "certificates": {
+    "eyebrow": "Ishonch va malaka",
+    "title": "Sertifikatlar va mukofotlar",
+    "description": "Xalqaro akkreditatsiyaga ega tajriba bilan tasdiqlangan yuqori xizmat standartlari."
+  },
+  "gallery": {
+    "eyebrow": "Bizning makon",
+    "title": "Klinika galereyasi",
+    "description": "Zamonaviy va xush klinikamizning ichki ko‘rinishi."
+  },
+  "reviewsSection": {
+    "eyebrow": "Fikrlar",
+    "title": "Bemorlarimiz nima deydi",
+    "description": "Tabassumini bizga ishonib topshirgan bemorlarning haqiqiy sharhlari.",
+    "via": "{source} orqali"
+  },
+  "faq": {
+    "eyebrow": "Savol-javob",
+    "title": "Ko‘p beriladigan savollar",
+    "description": "Tashrifingizdan oldin bilishingiz kerak bo‘lgan hamma narsa."
+  },
+  "booking": {
+    "title": "Vaqt olish",
+    "description": "Xizmat va sanani tanlang — bo‘sh vaqtni ko‘rasiz va bandlovingizni darhol tasdiqlaymiz.",
+    "callUs": "Bizga qo‘ng‘iroq qiling",
+    "location": "Manzilimiz",
+    "hours": "Ish vaqti",
+    "monFri": "Dush–Jum",
+    "sat": "Shan",
+    "sun": "Yak",
+    "closed": "Yopiq",
+    "fullName": "To‘liq ism",
+    "fullNamePh": "Ismingizni kiriting",
+    "phone": "Telefon raqami",
+    "phoneInvalid": "To‘g‘ri +998 raqam kiriting",
+    "service": "Xizmat",
+    "servicePh": "Xizmatni tanlang",
+    "date": "Sana",
+    "time": "Vaqt",
+    "availableTimes": "Bo‘sh vaqtlar",
+    "checking": "Tekshirilmoqda…",
+    "noTimes": "Bu kunda bo‘sh vaqt yo‘q — boshqa kunni tanlang.",
+    "message": "Xabar (ixtiyoriy)",
+    "messagePh": "Biz bilishimiz kerak bo‘lgan narsa bormi?",
+    "review": "Ko‘rib chiqish va band qilish",
+    "missingFields": "Iltimos, ism, xizmat, sana va vaqtni kiriting.",
+    "phoneError": "Iltimos, to‘g‘ri O‘zbek raqamini kiriting (+998 XX XXX XX XX).",
+    "unavailable": "Bandlov vaqtincha ishlamayapti. Iltimos, qo‘ng‘iroq qiling",
+    "reviewTitle": "Bandlovni ko‘rib chiqing",
+    "name": "Ism",
+    "numberOk": "Bu raqam to‘g‘rimi? Biz shu raqam orqali bog‘lanamiz.",
+    "edit": "Tahrirlash",
+    "confirm": "Bandlovni tasdiqlash",
+    "bookingNow": "Bandlanmoqda…",
+    "taken": "Bu vaqt endigina band qilindi — boshqasini tanlang.",
+    "genericError": "Nimadir xato ketdi. Qayta urinib ko‘ring.",
+    "requestReceived": "So‘rov qabul qilindi!",
+    "confirmedTitle": "Bandlov tasdiqlandi!",
+    "pendingMsg": "Bandlovingizni tasdiqlash uchun tez orada bog‘lanamiz.",
+    "seeYou": "Sizni {date} kuni {time} da kutamiz.",
+    "viewChange": "Bu bandlovni ko‘rish yoki o‘zgartirish",
+    "bookAnother": "Yana bandlov qilish"
+  },
+  "footer": {
+    "blurb": "Qulay va xush muhitda zamonaviy texnologiyalar bilan yuqori darajali stomatologik yordam.",
+    "quickLinks": "Tezkor havolalar",
+    "services": "Xizmatlar",
+    "contact": "Aloqa",
+    "rights": "Barcha huquqlar himoyalangan.",
+    "crafted": "Toshkentda mehr bilan yaratildi."
+  },
+  "login": {
+    "title": "SmileCare Admin",
+    "subtitle": "Klinikangizni boshqarish uchun kiring",
+    "email": "Email",
+    "password": "Parol",
+    "invalid": "Email yoki parol noto‘g‘ri.",
+    "signingIn": "Kirilmoqda…",
+    "signIn": "Kirish"
+  },
+  "dashboard": {
+    "overview": "Umumiy",
+    "appointments": "Bandlovlar",
+    "patients": "Bemorlar",
+    "content": "Kontent",
+    "availability": "Ish vaqti",
+    "settings": "Sozlamalar",
+    "signOut": "Chiqish",
+    "admin": "Admin",
+    "contentTitle": "Kontent",
+    "contentSubtitle": "Ochiq saytda ko‘rinadigan hamma narsani boshqaring. O‘zgarishlar darhol jonli ko‘rinadi."
+  }
+}

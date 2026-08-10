@@ -13,7 +13,7 @@ import {
   Textarea,
   Button,
 } from "@/components/shared";
-import { updatePatientNotes } from "@/app/dashboard/actions";
+import { updatePatientNotes } from "@/app/[locale]/dashboard/actions";
 
 export function PatientNotes({
   patientId,

@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { ContentTabs, type ContentData } from "@/components/admin/content/content-tabs";
 import type { ContentRow } from "@/components/admin/content/entity-manager";
@@ -5,6 +6,7 @@ import type { ContentRow } from "@/components/admin/content/entity-manager";
 export const dynamic = "force-dynamic";
 
 export default async function ContentPage() {
+  const t = await getTranslations("dashboard");
   const supabase = await createClient();
 
   // Signed-in dentist: RLS returns ALL rows (including unpublished/hidden).
@@ -33,11 +35,9 @@ export default async function ContentPage() {
     <div className="flex flex-col gap-6">
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-foreground">
-          Content
+          {t("contentTitle")}
         </h1>
-        <p className="text-sm text-muted-foreground">
-          Manage everything shown on the public site. Changes go live immediately.
-        </p>
+        <p className="text-sm text-muted-foreground">{t("contentSubtitle")}</p>
       </div>
       <ContentTabs data={data} />
     </div>
