@@ -1,0 +1,16 @@
+<svg width="680" height="200" viewBox="0 0 680 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="smilecare-grad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#60A5FA"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(40,12)" fill="none" stroke="url(#smilecare-grad)" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke-width="8" d="M70,18 C50,6 26,10 18,30 C10,48 14,68 18,88 C22,108 20,150 34,166 C45,178 51,140 59,127 C64,119 76,119 81,127 C89,140 95,178 106,166 C120,150 118,108 122,88 C126,68 130,48 122,30 C114,10 90,6 70,18 Z"/>
+    <path stroke-width="10" d="M92,52 C66,50 56,74 76,86 C96,98 84,122 58,120"/>
+  </g>
+  <text x="210" y="112" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="64" letter-spacing="-1">
+    <tspan fill="#0F172A">Smile</tspan><tspan fill="#2563EB">Care</tspan>
+  </text>
+  <text x="214" y="150" font-family="Arial, Helvetica, sans-serif" font-weight="500" font-size="20" letter-spacing="8" fill="#64748B">DENTAL CLINIC</text>
+</svg>

@@ -43,6 +43,7 @@ export function SiteHeader({ settings }: { settings: ClinicSettingsRow | null })
       <Container className="flex h-16 items-center justify-between gap-4 lg:h-20">
         <a href="#home" aria-label={`${settings?.clinic_name ?? "SmileCare"} home`}>
           <Logo
+            animated
             name={settings?.clinic_name}
             tagline={settings?.tagline}
             logoUrl={settings?.logo_url}
