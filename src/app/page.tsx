@@ -13,6 +13,7 @@ import {
   AppointmentSection,
   SiteFooter,
 } from "@/components/public";
+import { IntroSplash } from "@/components/public/intro-splash";
 import { getSiteContent } from "@/lib/site-content";
 
 // Always render from the live database so dashboard edits appear immediately.
@@ -23,6 +24,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <IntroSplash />
       <SiteHeader settings={content.settings} />
       <main className="flex flex-col">
         <Hero />
