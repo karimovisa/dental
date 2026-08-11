@@ -178,8 +178,16 @@ export async function updateSettings(input: {
   working_hours: unknown;
 }): Promise<ActionResult> {
   const supabase = await createClient();
+
+  // Guard: an unauthenticated request would be silently filtered by RLS (0 rows,
+  // no error) and look "saved" while nothing changed. Fail loudly instead.
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { error: "Session expired — please sign in again." };
+
   const clean = (v: string) => (v.trim() === "" ? null : v.trim());
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from("clinic_settings")
     .update({
       booking_requires_approval: input.booking_requires_approval,
@@ -197,8 +205,12 @@ export async function updateSettings(input: {
       facebook_url: clean(input.facebook_url),
       working_hours: input.working_hours as never,
     })
-    .eq("id", 1);
+    .eq("id", 1)
+    .select("id");
   if (error) return { error: error.message };
+  if (!data || data.length === 0) {
+    return { error: "Not saved — you may be signed out. Please sign in again." };
+  }
   revalidatePath("/dashboard/settings");
   revalidatePath("/dashboard");
   revalidatePath("/");

@@ -31,14 +31,33 @@ function revalidateContent() {
   revalidatePath("/dashboard/content");
 }
 
+const NOT_SAVED = "Not saved — you may be signed out. Please sign in again.";
+const NO_SESSION = "Session expired — please sign in again.";
+
+/** Confirm there's an authenticated dentist. Without this, RLS silently filters
+ *  writes to 0 rows and the UI would falsely report success. */
+async function requireUser(
+  supabase: Awaited<ReturnType<typeof createClient>>
+): Promise<boolean> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  return Boolean(user);
+}
+
 export async function createContent(
   table: string,
   values: Record<string, unknown>
 ): Promise<ActionResult> {
   assertTable(table);
   const supabase = await createClient();
-  const { error } = await supabase.from(table).insert(values as never);
+  if (!(await requireUser(supabase))) return { error: NO_SESSION };
+  const { data, error } = await supabase
+    .from(table)
+    .insert(values as never)
+    .select("id");
   if (error) return { error: error.message };
+  if (!data || data.length === 0) return { error: NOT_SAVED };
   revalidateContent();
   return { ok: true };
 }
@@ -50,11 +69,14 @@ export async function updateContent(
 ): Promise<ActionResult> {
   assertTable(table);
   const supabase = await createClient();
-  const { error } = await supabase
+  if (!(await requireUser(supabase))) return { error: NO_SESSION };
+  const { data, error } = await supabase
     .from(table)
     .update(values as never)
-    .eq("id", id);
+    .eq("id", id)
+    .select("id");
   if (error) return { error: error.message };
+  if (!data || data.length === 0) return { error: NOT_SAVED };
   revalidateContent();
   return { ok: true };
 }
@@ -65,8 +87,14 @@ export async function deleteContent(
 ): Promise<ActionResult> {
   assertTable(table);
   const supabase = await createClient();
-  const { error } = await supabase.from(table).delete().eq("id", id);
+  if (!(await requireUser(supabase))) return { error: NO_SESSION };
+  const { data, error } = await supabase
+    .from(table)
+    .delete()
+    .eq("id", id)
+    .select("id");
   if (error) return { error: error.message };
+  if (!data || data.length === 0) return { error: NOT_SAVED };
   revalidateContent();
   return { ok: true };
 }
@@ -79,6 +107,7 @@ export async function swapContentOrder(
 ): Promise<ActionResult> {
   assertTable(table);
   const supabase = await createClient();
+  if (!(await requireUser(supabase))) return { error: NO_SESSION };
   const [r1, r2] = await Promise.all([
     supabase.from(table).update({ display_order: b.display_order } as never).eq("id", a.id),
     supabase.from(table).update({ display_order: a.display_order } as never).eq("id", b.id),
