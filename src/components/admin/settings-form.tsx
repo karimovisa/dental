@@ -2,14 +2,13 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Check } from "lucide-react";
+import { Check, TriangleAlert } from "lucide-react";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardDescription,
   CardContent,
-  CardFooter,
   Input,
   Select,
   Button,
@@ -288,18 +287,23 @@ export function SettingsForm({ settings }: { settings: ClinicSettingsRow }) {
             );
           })}
         </CardContent>
-        <CardFooter className="justify-end gap-3">
-          {saved && (
-            <span className="flex items-center gap-1.5 text-sm text-emerald-600">
-              <Check className="size-4" /> Saved
-            </span>
-          )}
-          {error && <span className="text-sm text-destructive">{error}</span>}
-          <Button onClick={save} isLoading={pending} disabled={pending}>
-            Save changes
-          </Button>
-        </CardFooter>
       </Card>
+
+      <div className="sticky bottom-4 z-20 flex items-center justify-end gap-3 rounded-xl border border-border bg-card/95 p-3 shadow-elevated backdrop-blur">
+        {saved && (
+          <span className="flex items-center gap-1.5 text-sm text-emerald-600">
+            <Check className="size-4" /> Saved
+          </span>
+        )}
+        {error && (
+          <span className="flex items-center gap-1.5 text-sm text-destructive">
+            <TriangleAlert className="size-4 shrink-0" /> {error}
+          </span>
+        )}
+        <Button onClick={save} isLoading={pending} disabled={pending}>
+          Save changes
+        </Button>
+      </div>
     </div>
   );
 }
