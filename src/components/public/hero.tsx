@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { CalendarDays, ArrowRight, Award, Users, Cpu, BadgeCheck } from "lucide-react";
 import { Button, Container, Reveal } from "@/components/shared";
-import { Logo } from "./logo";
 
 /** Landing hero: headline + CTAs + trust indicators, paired with a hero image. */
 export function Hero() {
@@ -20,10 +19,6 @@ export function Hero() {
       id="home"
       className="relative scroll-mt-24 overflow-hidden bg-gradient-to-b from-accent/60 to-background"
     >
-      <div className="absolute right-6 top-6 z-10 hidden lg:block">
-        <Logo animated />
-      </div>
-
       <Container className="grid items-center gap-12 py-16 lg:grid-cols-2 lg:py-24">
         {/* Left column */}
         <div className="flex flex-col items-start gap-8">

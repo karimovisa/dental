@@ -11,6 +11,16 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 export function IntroSplash() {
   const [show, setShow] = React.useState(false);
 
+  // Always open the landing page at the top. Some mobile browsers restore the
+  // previous scroll position (landing the visitor on the booking section at the
+  // bottom); take over scroll restoration and reset to the top unless the URL
+  // targets a specific section via a hash.
+  React.useEffect(() => {
+    if (typeof window === "undefined") return;
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    if (!window.location.hash) window.scrollTo(0, 0);
+  }, []);
+
   React.useEffect(() => {
     if (typeof window === "undefined") return;
     if (sessionStorage.getItem("sc_intro_seen")) return;
